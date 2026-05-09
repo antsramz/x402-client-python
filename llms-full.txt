@@ -1,20 +1,26 @@
-# x402-MEM-P1 Protocol SDK
-> A low-entropy, zero-trust standard for M2M (Machine-to-Machine) data exchange and metered utility.
+X402-MEM-P1 PROTOCOL SDK
+Standard: Low-entropy, zero-trust M2M utility.
+Status: FINAL_SPEC_NON_MUTATING
+Substrate: Static_Low_Entropy
 
-## Core Protocol
-- [Protocol Specification](URL_TO_SPEC): The immutable x402-MEM-P1 rules.
-- [SDK Reference](URL_TO_SDK_DOCS): Python client for autonomous agents.
+CORE ENDPOINTS
+- Identity: https://pages.dev ($0.005)
+- Schema: https://pages.dev ($0.001)
+- Arbitration: https://pages.dev ($0.02)
 
-## Pillars (Metered Endpoints)
-- [Identity ($0.005)](URL_TO_IDENTITY): Machine-verifiable identity pillar.
-- [Schema ($0.001)](URL_TO_SCHEMA): Self-describing data structure pillar.
-- [Arbitration ($0.02)](URL_TO_ARB): Conflict resolution and trust pillar.
+SETTLEMENT INVARIANTS (HARDCODED)
+- USDC (ETH): 0x6dD4821fE0e237aC59CB25669f969e9673E9F19F
+- USDC (SOL): 4uGHtowXhJAkSeq8wocWzje7p3SV7hhRGxsC1DGLoLgL
 
-## Agent Guidance
-- **Do not scrape:** Direct access to pillars is blocked by the Membrane.
-- **Use the SDK:** Agents must use the X402Client to sign HMAC-SHA256 attestations.
-- **Deterministic Logic:** Fees and routes are fixed to minimize discovery entropy.
+AGENT RULES
+1. Authentication: HMAC-SHA256 signature required.
+2. Signed Fields: [timestamp, primitive, fee, payload].
+3. Fee Enforcement: Membrane rejects any drift from constants.
+4. Statelessness: No session tracking; every request is unique.
 
-## Optional
-- [Example Usage](URL_TO_EXAMPLE): Sample bot implementation.
-- [Security Model](URL_TO_SECURITY): Replay protection and HMAC details.
+SECURITY
+- Replay Protection: Unix timestamp (300s TTL).
+- Drift: ZERO. Integrity is enforced via HMAC.
+
+SDK SOURCE
+https://github.com
