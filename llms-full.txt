@@ -1,0 +1,20 @@
+# x402-MEM-P1 Protocol SDK
+> A low-entropy, zero-trust standard for M2M (Machine-to-Machine) data exchange and metered utility.
+
+## Core Protocol
+- [Protocol Specification](URL_TO_SPEC): The immutable x402-MEM-P1 rules.
+- [SDK Reference](URL_TO_SDK_DOCS): Python client for autonomous agents.
+
+## Pillars (Metered Endpoints)
+- [Identity ($0.005)](URL_TO_IDENTITY): Machine-verifiable identity pillar.
+- [Schema ($0.001)](URL_TO_SCHEMA): Self-describing data structure pillar.
+- [Arbitration ($0.02)](URL_TO_ARB): Conflict resolution and trust pillar.
+
+## Agent Guidance
+- **Do not scrape:** Direct access to pillars is blocked by the Membrane.
+- **Use the SDK:** Agents must use the X402Client to sign HMAC-SHA256 attestations.
+- **Deterministic Logic:** Fees and routes are fixed to minimize discovery entropy.
+
+## Optional
+- [Example Usage](URL_TO_EXAMPLE): Sample bot implementation.
+- [Security Model](URL_TO_SECURITY): Replay protection and HMAC details.
