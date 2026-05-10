@@ -18,7 +18,7 @@ class X402Client:
     }
 
     def __init__(self, secret_key):
-        # FIXED SUBDOMAIN: Prevents hitting the generic pages.dev marketing site
+        # FIXED SUBDOMAIN: Hits your specific membrane, not the marketing site
         self.membrane_url = "https://x402-mem.pages.dev"
         self.secret_key = secret_key.encode()
 
@@ -44,13 +44,17 @@ class X402Client:
             "User-Agent": "x402-Autonomous-Agent/1.0"
         }
 
-        # 6. STATIC COMPATIBILITY: Forces GET to satisfy GitHub Pages
+        # 6. STATIC COMPATIBILITY: Forces GET + .json extension
         with httpx.Client() as client:
-            endpoint = f"{self.membrane_url}/{primitive}"
+            # FIX: Added .json to the endpoint to match the static files in your repo
+            endpoint = f"{self.membrane_url}/{primitive}.json"
             response = client.get(endpoint, headers=headers)
             
             # Error catch for Static Substrate drops
             if response.status_code != 200:
-                return {"error": f"Pillar Drop: {response.status_code}", "msg": "Verify subdomain logic"}
+                return {
+                    "error": f"Pillar Drop: {response.status_code}", 
+                    "msg": f"Failed to fetch {endpoint}. Check if file exists in GitHub root."
+                }
                 
             return response.json()
