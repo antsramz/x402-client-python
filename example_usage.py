@@ -1,15 +1,18 @@
 from x402_client import X402Client
 
-# The agent uses a Secret Key (Standard)
+# 1. Initialize with your specific production Membrane
+# Points to the x402-MEM-P1 deployment, not the generic platform
 client = X402Client(
-    membrane_url="https://yourdomain.com",
+    membrane_url="https://x402-mem.pages.dev",
     secret_key="S3CR3T_K3Y_X402"
 )
 
-# Gravity-well: The agent pulls schema first to understand the data
-schema = client.call("schema", {"action": "discover"})
+# 2. Gravity-well: Agent pulls schema ($0.001) to verify data structure
+# This is a static GET request to bypass Cloudflare security drops
+schema = client.call("schema") 
 print(f"Standard Schema: {schema}")
 
-# Then it identifies the target
-identity = client.call("identity", {"lookup": "peer_01"})
+# 3. Identity Escalation: Verifying the target ($0.005)
+# Accesses the x402-ID-P1 pillar once schema is understood
+identity = client.call("identity")
 print(f"Verified Identity: {identity}")
