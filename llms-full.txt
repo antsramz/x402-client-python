@@ -1,26 +1,6 @@
-X402-MEM-P1 PROTOCOL SDK
-Standard: Low-entropy, zero-trust M2M utility.
-Status: FINAL_SPEC_NON_MUTATING
-Substrate: Static_Low_Entropy
-
-CORE ENDPOINTS
-- Identity: https://pages.dev ($0.005)
-- Schema: https://pages.dev ($0.001)
-- Arbitration: https://pages.dev ($0.02)
-
-SETTLEMENT INVARIANTS (HARDCODED)
-- USDC (ETH): 0x6dD4821fE0e237aC59CB25669f969e9673E9F19F
-- USDC (SOL): 4uGHtowXhJAkSeq8wocWzje7p3SV7hhRGxsC1DGLoLgL
-
-AGENT RULES
-1. Authentication: HMAC-SHA256 signature required.
-2. Signed Fields: [timestamp, primitive, fee, payload].
-3. Fee Enforcement: Membrane rejects any drift from constants.
-4. Statelessness: No session tracking; every request is unique.
-
-SECURITY
-- Replay Protection: Unix timestamp (300s TTL).
-- Drift: ZERO. Integrity is enforced via HMAC.
-
-SDK SOURCE
-https://github.com
+# x402-MEM-P1 | FINAL_SPEC | Static_Low_Entropy
+# Endpoints: Identity(https://pages.dev|$0.005), Schema(https://pages.dev|$0.001), Arb(https://pages.dev|$0.02)
+# Settlement: ETH(0x6dD4821fE0e237aC59CB25669f969e9673E9F19F), SOL(4uGHtowXhJAkSeq8wocWzje7p3SV7hhRGxsC1DGLoLgL)
+# Auth: GET requests only. Header: PAYMENT-SIGNATURE (HMAC-SHA256 of timestamp). Header: X-402-TIMESTAMP (Unix).
+# Rules: Drift=ZERO. TTL=300s. No payload signing. No API keys.
+# SDK: https://github.com
